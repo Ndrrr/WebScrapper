@@ -4,7 +4,14 @@ namespace GetData
 {
     public static class ProductFinder
     {
-        public static List<Product> GetProducts(IWebDriver driver)
+        static IDictionary<int, List<string>> xPaths = new Dictionary<int, List<string>>()
+        {
+            {0,new List<string>(){ "//div[@data-cel-widget='search_result_", "'][@data-uuid]",
+                "//span[@class='a-size-medium a-color-base a-text-normal']","//span[@class='a-size-base-plus a-color-base a-text-normal']",
+                "//div[@class='a-row a-size-base a-color-secondary']//span","//span[@class='a-icon-alt']","//span[@class='a-price']//span[@class='a-offscreen']"
+            } }
+        };
+        public static List<Product> GetProducts(IWebDriver driver, int webSiteInd)
         {
             List<Product> prodlist = new List<Product>();
             int currentIndex = 0;
@@ -14,7 +21,7 @@ namespace GetData
                 string prod_xpath = "";
                 try
                 {
-                    prod_xpath = $"//div[@data-cel-widget='search_result_{currentIndex}'][@data-uuid]";
+                    prod_xpath = xPaths[webSiteInd][0]+$"{currentIndex}"+xPaths[webSiteInd][1];
                     driver.FindElement(By.XPath(prod_xpath));
                 }
                 catch
@@ -29,25 +36,25 @@ namespace GetData
                 }
                 BrowserUtils.Wait(driver, prod_xpath);
 
-                string title = GetItem(driver, $"{prod_xpath}//span[@class='a-size-medium a-color-base a-text-normal']", 0);
-                if (String.IsNullOrEmpty(title) || String.IsNullOrWhiteSpace(title)) title = GetItem(driver, $"{prod_xpath}//span[@class='a-size-base-plus a-color-base a-text-normal']", 0);
-                string price = GetPrice(driver, prod_xpath);
-                string star = GetStar(driver, prod_xpath);
+                string title = GetItem(driver, $"{prod_xpath}{xPaths[webSiteInd][2]}", 0);
+                if (String.IsNullOrEmpty(title) || String.IsNullOrWhiteSpace(title)) title = GetItem(driver, $"{prod_xpath}{xPaths[webSiteInd][3]}", 0);
+                string price = GetPrice(driver, prod_xpath, webSiteInd);
+                string star = GetStar(driver, prod_xpath,webSiteInd);
 
 
-                string seller = GetItem(driver, $"{prod_xpath}//div[@class='a-row a-size-base a-color-secondary']//span");
+                string seller = GetItem(driver, $"{prod_xpath}{xPaths[webSiteInd][4]}");
                 prodlist.Add(new Product(title, price,star, seller));
                 currentProductCount++; currentIndex++;
             }
             return prodlist;
         }
 
-        private static string GetStar(IWebDriver driver, string xPath)
+        private static string GetStar(IWebDriver driver, string xPath, int webSiteInd)
         {
             string star = "";
             try
             {
-                star = driver.FindElement(By.XPath($"{xPath}//span[@class='a-icon-alt']")).GetAttribute("innerHTML");
+                star = driver.FindElement(By.XPath($"{xPath}{xPaths[webSiteInd][5]}")).GetAttribute("innerHTML");
             }
             catch
             {
@@ -56,13 +63,13 @@ namespace GetData
 
             return star;
         }
-        private static string GetPrice(IWebDriver driver, string xPath)
+        private static string GetPrice(IWebDriver driver, string xPath, int webSiteInd)
         {
 
             string price = "";
             try
             {
-                price = driver.FindElement(By.XPath($"{xPath}//span[@class='a-price']//span[@class='a-offscreen']")).GetAttribute("innerHTML");
+                price = driver.FindElement(By.XPath($"{xPath}{xPaths[webSiteInd][6]}")).GetAttribute("innerHTML");
             }
             catch
             {

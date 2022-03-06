@@ -8,12 +8,26 @@ namespace GetData
 {
     public static class Run
     {
-        public static List<Product> GetResult(string productForSearch) {
+        
+        static IDictionary<int, string> xPaths = new Dictionary<int, string>()
+        {
+            {0,"//input[@id='twotabsearchtextbox']" },
+            {1, "//input[@class='query']" }
+            
+        };
+        static IDictionary<int, string> URLs = new Dictionary<int, string>()
+        {
+            {0,"https://amazon.com/" },
+            {1,"https://tap.az/" }
+        };
+
+
+        public static List<Product> GetResult(string productForSearch, int webSiteInd) {
             IWebDriver driver = BrowserUtils.StartBrowser();
 
-            string searchbar_xpath = "//input[@id='twotabsearchtextbox']";
+            string searchbar_xpath = xPaths[webSiteInd];
 
-            driver.Navigate().GoToUrl("https://amazon.com/");
+            driver.Navigate().GoToUrl(URLs[webSiteInd]);
 
             BrowserUtils.Wait(driver, searchbar_xpath);
 
@@ -22,9 +36,11 @@ namespace GetData
             searchbar.Click();
             Console.WriteLine("Search bar is clicked");
             searchbar.SendKeys(productForSearch);
+            Console.WriteLine("Keys have been sent");
             searchbar.Submit();
+            Console.WriteLine("Searchbar Submit finished");
 
-            List<Product> prodlist = ProductFinder.GetProducts(driver);
+            List<Product> prodlist = ProductFinder.GetProducts(driver,0);
             Console.WriteLine("Products are get");
 
             driver.Dispose();

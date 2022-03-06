@@ -23,7 +23,7 @@ namespace WebScrapper.Pages
         public void OnPost()
         {
             string productName = Request.Form["DesiredProduct"];
-            Products = Run.GetResult(productName);
+            Products = Run.GetResult(productName,1);
             flag = true;
         }
     }
