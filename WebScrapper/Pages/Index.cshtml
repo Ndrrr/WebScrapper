@@ -8,36 +8,35 @@
 }
 <body>
     
-    <form method="post" >
+    <form method="post" id="product-form" >
         <fieldset>
             <legend>Search From Amazon</legend>
             <div>
-            <label for="DesiredProduct">Desired Product:</label>
+            <label for="DesiredProduct" style="font-size: 20px;">Desired Product:&nbsp&nbsp </label>
             <input type="text" name="DesiredProduct" value="" />
             </div>
-            <div>
-            <label>&nbsp;</label>
-            <input type="submit" value="Submit" class="submit" />
-            </div>
+            <button type="submit" class="btn btn-primary" form="product-form" value="Submit" style="margin:auto">Submit</button>
+
         </fieldset>
-        </form>
-        @if(Model.flag==true){
-            <table>
-            <thead>
-                <tr>
-                    <td>Title</td>
-                    <td>Price</td> 
-                    <td>Rating</td>
-                    <td>Seller</td>
-                    </tr>
-            </thead>
-            <tbody>
-                @foreach(var val in Model.Products)
-                {
-                    <tr><td>@val.Title</td><td>@val.Price</td><td>@val.Rating</td> <td>@val.Seller</td></tr>
-                }
-            </tbody>
-        </table>
-       }
+    </form>
+    <br />
+    @if(Model.flag==true){
+        <table>
+        <thead>
+            <tr>
+                <td>Title</td>
+                <td>Price</td> 
+                <td>Rating</td>
+                <td>Seller</td>
+                </tr>
+        </thead>
+        <tbody>
+            @foreach(var val in Model.Products)
+            {
+                <tr><td>@val.Title</td><td>@val.Price</td><td>@val.Rating</td> <td>@val.Seller</td></tr>
+            }
+        </tbody>
+    </table>
+    }
 </body>
 
