@@ -13,9 +13,18 @@
             this.Rating = Rating;
             this.Seller = Seller;
         }
+
+        public Product(string Title, string Price, string CreationDate)
+        {
+            this.Title =(Title);
+            this.Price = (Price);
+            this.CreationDate = CreationDate;
+        }
+
+        public string? CreationDate;
         public string Title;
         public string Price;
-        public string Rating;
-        public string Seller;
+        public string? Rating;
+        public string? Seller;
     }
 }

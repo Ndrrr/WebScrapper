@@ -4,12 +4,12 @@ using GetData;
 
 namespace WebScrapper.Pages
 {
-    public class IndexModel : PageModel
+    public class LalafoIndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
         public List<Product> Products;
         public bool flag;
-        public IndexModel(ILogger<IndexModel> logger)
+        public LalafoIndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
             Products = new List<Product>();
@@ -23,7 +23,7 @@ namespace WebScrapper.Pages
         public void OnPost()
         {
             string productName = Request.Form["DesiredProduct"];
-            Products = Run.GetResult(productName,0);
+            Products = Run.GetResult(productName,2);
             flag = true;
         }
     }
