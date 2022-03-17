@@ -1,12 +1,15 @@
 ﻿using OpenQA.Selenium;
 
-namespace GetData
+namespace WebScrapper.GetData
 {
-    public static class ProductFinderTapAz
+    public class ProductFinderTapAz:ProductFinder
     {
-        public static List<Product> GetProducts(IWebDriver driver)
+        public ProductFinderTapAz(string URL, string searchBarXpath) : base(URL, searchBarXpath)
         {
-            List<Product> prodlist = new List<Product>();
+        }
+        
+        public override List<Product> GetProducts(IWebDriver driver)
+        {
             string productsXpath = "//div[contains(concat(' ',normalize-space(@class),' '),' products-i ')]";
             string priceValueXpath = "//span[@class='price-val']";
             string priceCurXpath = "//span[@class='price-cur']";
@@ -25,7 +28,7 @@ namespace GetData
                     price+= driver.FindElement(By.XPath(productsXpath+ $"[{curInd}]" + priceCurXpath)).GetAttribute("innerHTML"); ;
                     creationDate= driver.FindElement(By.XPath(productsXpath+ $"[{curInd}]" + CreationXpath)).GetAttribute("innerHTML");
                     productsCount++;
-                    prodlist.Add(new Product(title,price,creationDate));
+                    this.Products.Add(new Product(title,price,creationDate));
                     Console.WriteLine(productsCount);
                 }
                 catch
@@ -34,7 +37,7 @@ namespace GetData
                 }
                 curInd++;
             }
-            return prodlist;
+            return this.Products;
         }
     }
 }

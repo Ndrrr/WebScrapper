@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using GetData;
+using WebScrapper.GetData;
 
 namespace WebScrapper.Pages
 {

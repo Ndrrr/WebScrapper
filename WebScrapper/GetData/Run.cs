@@ -4,7 +4,7 @@ using OpenQA.Selenium.Chrome;
 using SeleniumExtras.WaitHelpers;
 using System.Linq;
 
-namespace GetData
+namespace WebScrapper.GetData
 {
     public static class Run
     {
@@ -13,45 +13,40 @@ namespace GetData
         {
             {0,"//input[@id='twotabsearchtextbox']" },
             {1, "//input[@class='query']" },
-            {2, "//input[@class='mainSearchInput']" }
+            {2, "//input[@class='search-box']" }
             
         };
         static IDictionary<int, string> URLs = new Dictionary<int, string>()
         {
             {0,"https://amazon.com/" },
             {1,"https://tap.az/" },
-            {0, "https://lalafo.az" }
+            {2, "https://trendyol.com" }
         };
 
 
         public static List<Product> GetResult(string productForSearch, int webSiteInd) {
             IWebDriver driver = BrowserUtils.StartBrowser();
-
-            string searchbar_xpath = xPaths[webSiteInd];
-
-            driver.Navigate().GoToUrl(URLs[webSiteInd]);
-
-            BrowserUtils.Wait(driver, searchbar_xpath);
-
-
-            IWebElement searchbar = driver.FindElement(By.XPath(searchbar_xpath));
-            searchbar.Click();
-            Console.WriteLine("Search bar is clicked");
-            searchbar.SendKeys(productForSearch);
-            Console.WriteLine("Keys have been sent");
-            searchbar.Submit();
-            Console.WriteLine("Searchbar Submit finished");
-
-            List<Product> prodlist;
-            if (webSiteInd == 0)
-                prodlist = ProductFinderAmazon.GetProducts(driver);
-            else
-                prodlist = ProductFinderTapAz.GetProducts(driver);
             
-            Console.WriteLine("Products are get");
+            ProductFinder finder;
+            if(webSiteInd == 0)
+            {
+                finder = new ProductFinderAmazon(URLs[webSiteInd],xPaths[webSiteInd]);
+            }
+            else if (webSiteInd == 1)
+            {
+                finder = new ProductFinderTapAz(URLs[webSiteInd], xPaths[webSiteInd]);
+            }
+            else
+            {
+                finder = new ProductFinderTrendyol(URLs[webSiteInd], xPaths[webSiteInd]);
+            }
+            finder.Initialize(driver);
+            finder.Search(driver, productForSearch);
+            List<Product> products = finder.GetProducts(driver);
+            Console.WriteLine("Products found");
 
             driver.Dispose();
-            return prodlist ;
+            return products;
         } 
     }
 }

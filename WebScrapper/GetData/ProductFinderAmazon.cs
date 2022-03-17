@@ -1,12 +1,16 @@
 ﻿using OpenQA.Selenium;
 
-namespace GetData
+namespace WebScrapper.GetData
 {
-    public static class ProductFinderAmazon
+    public class ProductFinderAmazon : ProductFinder
     {
-        public static List<Product> GetProducts(IWebDriver driver)
+        public ProductFinderAmazon(string URL, string searchBarXpath) : base(URL, searchBarXpath)
         {
-            List<Product> prodlist = new List<Product>();
+        }
+
+        
+        public override List<Product> GetProducts(IWebDriver driver)
+        {
             int currentIndex = 0;
             int currentProductCount = 0;
             while (currentProductCount != 10)
@@ -36,10 +40,10 @@ namespace GetData
 
 
                 string seller = GetItem(driver, $"{prod_xpath}//div[@class='a-row a-size-base a-color-secondary']//span");
-                prodlist.Add(new Product(title, price, star, seller));
+                this.Products.Add(new Product(title, price, star, seller));
                 currentProductCount++; currentIndex++;
             }
-            return prodlist;
+            return this.Products;
         }
 
         private static string GetStar(IWebDriver driver, string xPath)

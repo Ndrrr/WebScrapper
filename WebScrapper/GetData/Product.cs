@@ -1,10 +1,10 @@
-﻿namespace GetData
+﻿namespace WebScrapper.GetData
 {
     public class Product
     {
         public Product()
         {
-            this.Title=this.Price=this.Rating=this.Seller="";
+            this.Title=this.Price=this.Rating=this.Seller=this.CreationDate="Not Found";
         }
         public Product(string Title, string Price, string Rating, string Seller)
         {

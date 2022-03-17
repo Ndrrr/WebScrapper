@@ -1,17 +1,32 @@
 ﻿using OpenQA.Selenium;
-
-namespace GetData
+using OpenQA.Selenium.Support.UI;
+namespace WebScrapper.GetData
 {
-    public static class ProductFinderLalafo
+    public class ProductFinderTrendyol : ProductFinder
     {
-        public static List<Product> GetProducts(IWebDriver driver)
+        public ProductFinderTrendyol(string URL, string searchBarXpath) : base(URL, searchBarXpath)
         {
-            List<Product> prodlist = new List<Product>();
+        }
+        public override void ExtraRequirements(IWebDriver driver)
+        {
+            System.Threading.Thread.Sleep(4000);
+            SelectElement selectElement = new SelectElement(driver.FindElement(By.XPath("//select")));
+
+            //select by value
+            selectElement.SelectByValue("TR");
+            IWebElement button = driver.FindElement(By.XPath("//button"));
+            button.Click();
+
+
+        }
+        public override List<Product> GetProducts(IWebDriver driver)
+        {
             string productsXpath = "//div[contains(concat(' ',normalize-space(@class),' '),' products-i ')]";
             string priceValueXpath = "//span[@class='price-val']";
             string priceCurXpath = "//span[@class='price-cur']";
             string titleXpath = "//div[@class='products-name']";
             string CreationXpath = "//div[@class='products-created']";
+            
 
             int productsCount = 0, curInd = 0;
 
@@ -26,7 +41,7 @@ namespace GetData
                     price += driver.FindElement(By.XPath(productsXpath + $"[{curInd}]" + priceCurXpath)).GetAttribute("innerHTML"); ;
                     creationDate = driver.FindElement(By.XPath(productsXpath + $"[{curInd}]" + CreationXpath)).GetAttribute("innerHTML");
                     productsCount++;
-                    prodlist.Add(new Product(title, price, creationDate));
+                    this.Products.Add(new Product(title, price, creationDate));
                     Console.WriteLine(productsCount);
                 }
                 catch
@@ -35,7 +50,7 @@ namespace GetData
                 }
                 curInd++;
             }
-            return prodlist;
+            return this.Products;
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using GetData;
+using WebScrapper.GetData;
 
 namespace WebScrapper.Pages
 {
-    public class LalafoIndexModel : PageModel
+    public class TrendyolIndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
         public List<Product> Products;
         public bool flag;
-        public LalafoIndexModel(ILogger<IndexModel> logger)
+        public TrendyolIndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
             Products = new List<Product>();
