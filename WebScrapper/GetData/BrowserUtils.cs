@@ -14,7 +14,7 @@ namespace WebScrapper.GetData
             options.AddArguments("--disable-gpu");
             options.AddExcludedArgument("enable-logging");
             options.AddArguments("--start-maximized");
-            //options.AddArguments("--headless");
+            options.AddArguments("--headless");
 
 
             ChromeDriverService service = ChromeDriverService.CreateDefaultService();

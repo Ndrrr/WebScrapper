@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">WebScrapper</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,16 +20,25 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Amazon</a>
+                            <a class="nav-link text-warning" asp-area="" asp-page="/Index">
+                                <img src="~/assets/favicon-amazon.png" width="15" height="15"/>
+                                Amazon
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/TapAz">TapAz</a>
+                            <a class="nav-link text-warning" asp-area="" asp-page="/TapAz">
+                                <img src="~/assets/favicon-tapaz.png" width="12" height="12"/>
+                                TapAz
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Trendyol">Trendyol</a>
+                            <a class="nav-link text-warning" asp-area="" asp-page="/Trendyol">
+                                <img src="https://cdn.dsmcdn.com/web/production/favicon.ico" />
+                                Trendyol
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-warning" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>

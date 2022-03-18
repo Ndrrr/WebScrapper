@@ -21,10 +21,15 @@
             this.CreationDate = CreationDate;
         }
 
-        public string? CreationDate;
-        public string Title;
-        public string Price;
-        public string? Rating;
-        public string? Seller;
+        public Product(string Title, string Price)
+        {
+            this.Title = Title;
+            this.Price = Price;
+        }
+        public string CreationDate="Not Found";
+        public string Title = "Not Found";
+        public string Price = "Not Found";
+        public string? Rating = "Not Found";
+        public string? Seller = "Not Found";
     }
 }
