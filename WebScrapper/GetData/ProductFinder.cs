@@ -4,9 +4,9 @@ namespace WebScrapper.GetData
 {
     public abstract class ProductFinder
     {
-        protected List<Product>? Products;
-        protected string? URL;
-        protected string? searchBarXpath;
+        protected List<Product> Products;
+        protected string URL;
+        protected string searchBarXpath;
 
         public ProductFinder(string URL, string searchBarXpath)
         {
@@ -14,7 +14,6 @@ namespace WebScrapper.GetData
             this.URL = URL;
             this.searchBarXpath = searchBarXpath;
         }
-        public abstract List<Product> GetProducts(IWebDriver driver);
         public void Initialize(IWebDriver driver)
         {
             driver.Navigate().GoToUrl(this.URL);
@@ -44,6 +43,12 @@ namespace WebScrapper.GetData
             }
             Console.WriteLine("Searchbar Submit finished");
         }
+        public abstract void FindProducts(IWebDriver driver);
 
+        public List<Product> GetProducts(IWebDriver driver)
+        {
+            FindProducts(driver);
+            return this.Products;
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace WebScrapper.GetData
         {
         }
         
-        public override List<Product> GetProducts(IWebDriver driver)
+        public override void FindProducts(IWebDriver driver)
         {
             string productsXpath = "//div[contains(concat(' ',normalize-space(@class),' '),' products-i ')]";
             string priceValueXpath = "//span[@class='price-val']";
@@ -37,7 +37,6 @@ namespace WebScrapper.GetData
                 }
                 curInd++;
             }
-            return this.Products;
         }
     }
 }

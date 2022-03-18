@@ -9,7 +9,7 @@ namespace WebScrapper.GetData
         }
 
         
-        public override List<Product> GetProducts(IWebDriver driver)
+        public override void FindProducts(IWebDriver driver)
         {
             int currentIndex = 0;
             int currentProductCount = 0;
@@ -43,7 +43,6 @@ namespace WebScrapper.GetData
                 this.Products.Add(new Product(title, price, star, seller));
                 currentProductCount++; currentIndex++;
             }
-            return this.Products;
         }
 
         private static string GetStar(IWebDriver driver, string xPath)
