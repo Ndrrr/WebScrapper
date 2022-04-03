@@ -1,6 +1,5 @@
 ﻿@page
 @model IndexModel
-@using WebScrapper.GetData
 
 
 @{
@@ -33,7 +32,12 @@
         <tbody>
             @foreach(var val in Model.Products)
             {
-                <tr><td>@val.Title</td><td>@val.Price</td><td>@val.Rating</td> <td>@val.Seller</td></tr>
+                <tr>
+                        @foreach(var data in val.GetProductData())
+                        {
+                            <td>@data</td>
+                        }
+                </tr>
             }
         </tbody>
     </table>

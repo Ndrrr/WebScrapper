@@ -1,8 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.Chrome;
-using SeleniumExtras.WaitHelpers;
-using System.Linq;
+using WebScrapper.Data;
 
 namespace WebScrapper.GetData
 {

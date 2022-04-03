@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebScrapper.GetData;
+using WebScrapper.Data;
 
 namespace WebScrapper.Pages
 {
@@ -23,7 +24,7 @@ namespace WebScrapper.Pages
         public void OnPost()
         {
             string productName = Request.Form["DesiredProduct"];
-            Products = Run.GetResult(productName,0);
+            Products = Run.GetResult(productName, 0);
             flag = true;
         }
     }

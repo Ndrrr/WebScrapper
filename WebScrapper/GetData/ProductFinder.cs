@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-
+using WebScrapper.Data;
 namespace WebScrapper.GetData
 {
     public abstract class ProductFinder
