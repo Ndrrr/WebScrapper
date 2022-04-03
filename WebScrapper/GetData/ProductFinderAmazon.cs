@@ -9,11 +9,11 @@ namespace WebScrapper.GetData
         }
 
         
-        public override void FindProducts(IWebDriver driver)
+        public override void FindProducts(IWebDriver driver, int count)
         {
             int currentIndex = 0;
             int currentProductCount = 0;
-            while (currentProductCount != 10)
+            while (currentProductCount < count)
             {
                 string prod_xpath = "";
                 try
@@ -40,7 +40,7 @@ namespace WebScrapper.GetData
 
 
                 string seller = GetItem(driver, $"{prod_xpath}//div[@class='a-row a-size-base a-color-secondary']//span");
-                this.Products.Add(new Product(title, price, star, seller));
+                this.Products.Add(new AmazonProduct(title, price, star, seller));
                 currentProductCount++; currentIndex++;
             }
         }

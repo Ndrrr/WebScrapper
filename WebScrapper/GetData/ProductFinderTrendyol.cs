@@ -44,7 +44,7 @@ namespace WebScrapper.GetData
 
 
         }
-        public override void FindProducts(IWebDriver driver)
+        public override void FindProducts(IWebDriver driver, int count)
         {
             string productsXpath = "//div[@class='p-card-wrppr']";
             string priceValueXpath = "//div[@class='prc-box-dscntd']";
@@ -55,7 +55,7 @@ namespace WebScrapper.GetData
 
             int productsCount = 0, curInd = 0;
 
-            while (productsCount < 10)
+            while (productsCount < count)
             {
                 string title, price = "1", rating = "1";
                 try
@@ -70,7 +70,7 @@ namespace WebScrapper.GetData
                     rating = rating.Split('(')[1];
                     rating = rating.Split(')')[0];
                     Console.WriteLine(rating);
-                    this.Products.Add(new Product(title, price,rating ));
+                    this.Products.Add(new TrendyolProduct(title, price,rating ));
                 }
                 catch
                 {

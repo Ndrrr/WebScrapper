@@ -43,11 +43,11 @@ namespace WebScrapper.GetData
             }
             Console.WriteLine("Searchbar Submit finished");
         }
-        public abstract void FindProducts(IWebDriver driver);
+        public abstract void FindProducts(IWebDriver driver, int count);
 
-        public List<Product> GetProducts(IWebDriver driver)
+        public List<Product> GetProducts(IWebDriver driver, int count)
         {
-            FindProducts(driver);
+            FindProducts(driver,count);
             return this.Products;
         }
     }

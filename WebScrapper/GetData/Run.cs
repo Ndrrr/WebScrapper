@@ -42,7 +42,7 @@ namespace WebScrapper.GetData
             }
             finder.Initialize(driver);
             finder.Search(driver, productForSearch);
-            List<Product> products = finder.GetProducts(driver);
+            List<Product> products = finder.GetProducts(driver,10);
             Console.WriteLine("Products found");
 
             driver.Dispose();
