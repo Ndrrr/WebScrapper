@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using WebScrapper.Data;
+using WebScrapper.Controller;
 
 namespace WebScrapper.GetData
 {

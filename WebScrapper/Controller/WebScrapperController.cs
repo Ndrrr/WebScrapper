@@ -1,9 +1,10 @@
 ﻿using OpenQA.Selenium;
 using WebScrapper.Data;
+using WebScrapper.GetData;
 
-namespace WebScrapper.GetData
+namespace WebScrapper.Controller
 {
-    public static class Run
+    public static class WebScrapperController
     {
         
         static IDictionary<int, string> xPaths = new Dictionary<int, string>()

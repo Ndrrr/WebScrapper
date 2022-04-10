@@ -3,7 +3,7 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Chrome;
 using System;
 
-namespace WebScrapper.GetData
+namespace WebScrapper.Controller
 {
     public static class BrowserUtils
     {
