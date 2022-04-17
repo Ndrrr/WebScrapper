@@ -24,7 +24,7 @@ namespace WebScrapper.Pages
         public void OnPost()
         {
             string productName = Request.Form["DesiredProduct"];
-            Products = WebScrapperController.GetResult(productName, 1);
+            Products = WebScrapperController.GetResult(productName, 2);
             flag = true;
         }
     }

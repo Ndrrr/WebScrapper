@@ -15,6 +15,7 @@
             this.Price = Price;
             this.Rating = Rating;
             this.Seller = Seller;
+            this.productType = 4;
         }
 
         public override List<string> GetProductData()

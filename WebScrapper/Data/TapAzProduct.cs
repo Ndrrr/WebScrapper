@@ -12,13 +12,16 @@
             this.Title = Title;
             this.CreationDate = CreationDate;
             this.Price = Price;
+            this.productType = 2;
         }
+        
         public override List<string> GetProductData()
         {
             List<string> productData = new List<string>();
             productData.Add(this.Title);
             productData.Add(this.Price);
-            productData.Add(this.CreationDate);
+            productData.Add("-");
+            productData.Add("Creation Date: "+this.CreationDate);
             return productData;
         }
     }

@@ -7,9 +7,13 @@ namespace WebScrapper.GetData
     public abstract class ProductFinder
     {
         protected List<Product> Products;
-        protected string URL;
-        protected string searchBarXpath;
+        protected string? URL;
+        protected string? searchBarXpath;
 
+        public ProductFinder()
+        {
+            Products = new List<Product>();
+        }
         public ProductFinder(string URL, string searchBarXpath)
         {
             Products = new List<Product>();

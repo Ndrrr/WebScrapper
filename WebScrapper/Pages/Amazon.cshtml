@@ -1,0 +1,46 @@
+﻿@page
+@model AmazonIndexModel
+
+
+@{
+    ViewData["Title"] = "Home page";
+}
+<body>
+    
+    <form method="post" id="product-form" >
+        <fieldset>
+            <legend>Search From Amazon</legend>
+            <div>
+            <label for="DesiredProduct" style="font-size: 20px;">Desired Product:&nbsp&nbsp </label>
+            <input type="text" name="DesiredProduct" value="" />
+            </div>
+            <button type="submit" class="btn btn-primary" form="product-form" value="Submit" style="margin:auto">Submit</button>
+
+        </fieldset>
+    </form>
+    <br />
+    @if(Model.flag==true){
+        <table>
+        <thead>
+            <tr>
+                <td>Title</td>
+                <td>Price</td> 
+                <td>Rating</td>
+                <td>Extras</td>
+                </tr>
+        </thead>
+        <tbody>
+            @foreach(var val in Model.Products)
+            {
+                <tr>
+                        @foreach(var data in val.GetProductData())
+                        {
+                            <td>@data</td>
+                        }
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+</body>
+

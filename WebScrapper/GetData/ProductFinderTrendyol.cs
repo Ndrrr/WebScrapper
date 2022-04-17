@@ -51,29 +51,45 @@ namespace WebScrapper.GetData
             string titleXpath = "//span[contains(concat(' ',normalize-space(@class),' '),' prdct-desc-cntnr-name ')]";
             string preTitleXpath = "//span[contains(concat(' ',normalize-space(@class),' '),' prdct-desc-cntnr-ttl ')]";
             string ratingCountXpath = "//span[@class='ratingCount']";
-            
-
+            string ratingXpath = ("//div[@class='pr-rnr-sm-p']//span");
+            string productHREF;
             int productsCount = 0, curInd = 0;
-
+            bool flag = false;
             while (productsCount < count)
             {
-                string title, price = "1", rating = "1";
+                string title, price = "1", ratingCount = "1", rating;
                 try
                 {
                     title = driver.FindElement(By.XPath(productsXpath + $"[{curInd}]" + preTitleXpath)).GetAttribute("innerHTML")+ " ";
                     title += driver.FindElement(By.XPath(productsXpath + $"[{curInd}]" + titleXpath)).GetAttribute("innerHTML");
                     Console.WriteLine(title);
                     price = driver.FindElement(By.XPath(productsXpath + $"[{curInd}]" + priceValueXpath)).GetAttribute("innerHTML");
-                    rating = driver.FindElement(By.XPath(productsXpath + $"[{curInd}]" + ratingCountXpath)).GetAttribute("innerHTML");
+                    ratingCount = driver.FindElement(By.XPath(productsXpath + $"[{curInd}]" + ratingCountXpath)).GetAttribute("innerHTML");
+
+                    productHREF = driver.FindElement(By.XPath(productsXpath+$"[{curInd}]"+"//a")).GetAttribute("href");
+                    Console.WriteLine(productHREF);
+                    flag = true;
+                    driver.Navigate().GoToUrl(productHREF);
+                    System.Threading.Thread.Sleep(1000);
+                    
+                    rating = driver.FindElement(By.XPath(ratingXpath)).GetAttribute("innerHTML");
+                    driver.Navigate().Back();
+                    flag = false;
+
 
                     productsCount++;
-                    rating = rating.Split('(')[1];
-                    rating = rating.Split(')')[0];
+                    ratingCount = ratingCount.Split('(')[1];
+                    ratingCount = ratingCount.Split(')')[0];
                     Console.WriteLine(rating);
-                    this.Products.Add(new TrendyolProduct(title, price,rating ));
+                    this.Products.Add(new TrendyolProduct(title, price,rating, ratingCount ));
                 }
                 catch
                 {
+                    if (flag)
+                    {
+                        driver.Navigate().Back();
+                        flag = false;
+                    }
                     Console.WriteLine("err");
                 }
                 curInd++;

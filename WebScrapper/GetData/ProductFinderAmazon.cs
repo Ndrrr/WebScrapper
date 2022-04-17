@@ -15,12 +15,18 @@ namespace WebScrapper.GetData
         {
             int currentIndex = 0;
             int currentProductCount = 0;
+            string nextPageXpath = "//a[@class='s-pagination-item s-pagination-next s-pagination-button s-pagination-separator']";
             while (currentProductCount < count)
             {
+                if (currentIndex % 16 == 0)
+                {
+                    driver.Navigate().GoToUrl(driver.FindElement(By.XPath(nextPageXpath)).GetAttribute("href"));
+                }
+                Console.WriteLine("Current index: " + currentIndex + " Current product count: " + currentProductCount);
                 string prod_xpath = "";
                 try
                 {
-                    prod_xpath = $"//div[@data-cel-widget='search_result_{currentIndex}'][@data-uuid]";
+                    prod_xpath = $"//div[@data-cel-widget='search_result_{currentIndex%16}'][@data-uuid]";
                     driver.FindElement(By.XPath(prod_xpath));
                 }
                 catch
@@ -38,6 +44,11 @@ namespace WebScrapper.GetData
                 string title = GetItem(driver, $"{prod_xpath}//span[@class='a-size-medium a-color-base a-text-normal']", 0);
                 if (String.IsNullOrEmpty(title) || String.IsNullOrWhiteSpace(title)) title = GetItem(driver, $"{prod_xpath}//span[@class='a-size-base-plus a-color-base a-text-normal']", 0);
                 string price = GetPrice(driver, prod_xpath);
+                if (price == "Not Defined")
+                {
+                    currentIndex++;
+                    continue;
+                }
                 string star = GetStar(driver, prod_xpath);
 
 
@@ -71,7 +82,7 @@ namespace WebScrapper.GetData
             }
             catch
             {
-                price = "The price is not defined";
+                price = "Not Defined";
             }
             return price;
         }
