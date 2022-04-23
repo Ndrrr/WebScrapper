@@ -18,7 +18,7 @@
                 <input type="checkbox" name="website" value="4"> <span class="text-warning">Amazon</span> <img src="~/assets/favicon-amazon.png" width="15" height="15"/><br>      
                 <input type="checkbox" name="website" value="2"> <span class="text-warning"> Tapaz</span> <img src="~/assets/favicon-tapaz.png" width="12" height="12"/><br>      
                 <input type="checkbox" name="website" value="1"> <span class="text-warning">Trendyol</span> <img src="https://cdn.dsmcdn.com/web/production/favicon.ico" /><br>   
-                <button type="submit" class="btn btn-primary" form="product-form" value="Submit" style="margin:auto">Submit</button>
+                <button type="submit" id="search-btn" class="btn btn-primary" form="product-form" value="Submit" style="margin:auto">Submit</button>
             </fieldset>
         </form>
     </div>
@@ -33,32 +33,35 @@
                     <legend>Filter Resutls</legend> 
                     @if (Model.websiteIDs.Split(",").Contains("4"))
                     {
-                        <input type="checkbox" name="website-filter" value="4" > <span class="text-warning">Amazon</span> <img src="~/assets/favicon-amazon.png" width="15" height="15"/><br>
+                        <input id = "amazon-filter" type="checkbox" name="website-filter" value="4"> <span class="text-warning">Amazon</span> <img src="~/assets/favicon-amazon.png" width="15" height="15"/><br>
                     }
                     else
                     {
-                        <input type="checkbox" name="website-filter" value="4"  disabled> <span class="text-warning">Amazon</span> <img src="~/assets/favicon-amazon.png" width="15" height="15"/><br>
+                        <input id = "amazon-filter" type="checkbox" name="website-filter" value="4"  disabled> <span class="text-warning">Amazon</span> <img src="~/assets/favicon-amazon.png" width="15" height="15"/><br>
                         
                     }
                     @if (Model.websiteIDs.Split(",").Contains("2"))
                     {
-                        <input type="checkbox" name="website-filter" value="2" > <span class="text-warning"> Tapaz</span> <img src="~/assets/favicon-tapaz.png" width="12" height="12"/><br>
+                        <input id = "tapaz-filter" type="checkbox" name="website-filter" value="2" > <span class="text-warning"> Tapaz</span> <img src="~/assets/favicon-tapaz.png" width="12" height="12"/><br>
                     }
                     else
                     {
-                        <input type="checkbox" name="website-filter" value="2" disabled> <span class="text-warning"> Tapaz</span> <img src="~/assets/favicon-tapaz.png" width="12" height="12"/><br>
+                        <input id = "tapaz-filter" type="checkbox" name="website-filter" value="2" disabled> <span class="text-warning"> Tapaz</span> <img src="~/assets/favicon-tapaz.png" width="12" height="12"/><br>
                     }
                     @if (Model.websiteIDs.Split(",").Contains("1"))
                     {
-                        <input type="checkbox" name="website-filter" value="1" > <span class="text-warning">Trendyol</span> <img src="https://cdn.dsmcdn.com/web/production/favicon.ico" /><br>
+                        <input id = "trendyol-filter" type="checkbox" name="website-filter" value="1" > <span class="text-warning">Trendyol</span> <img src="https://cdn.dsmcdn.com/web/production/favicon.ico" /><br>
                     }
                     else
                     {
-                        <input type="checkbox" name="website-filter" value="1" disabled> <span class="text-warning">Trendyol</span> <img src="https://cdn.dsmcdn.com/web/production/favicon.ico" /><br>                       
+                        <input id = "trendyol-filter" type="checkbox" name="website-filter" value="1" disabled> <span class="text-warning">Trendyol</span> <img src="https://cdn.dsmcdn.com/web/production/favicon.ico" /><br>                       
                     }
-                    <button type="submit" class="btn btn-primary" form="filter-form" value="Submit" style="margin:auto">Filter</button>
+                    
                 </fieldset>
+                
             </form>
+            <button id="filter-btn" class="btn btn-primary" style="margin:auto">Filter</button>
+            <button id="sort-btn" class="btn btn-primary" style="margin:auto">Change Order</button>
         </div>
         <br />
         <br />
@@ -66,39 +69,39 @@
     }
     <br />
     @if(Model.flag==true){
-        <table>
-        <thead>
-            <tr>
-                <td>Title</td>
-                <td>Price</td> 
-                <td>Rating</td>
-                <td>Extras</td>
-                </tr>
-        </thead>
-        <tbody>
-            @foreach(var val in Model.Products)
-            {
+        <table id="data-table">
+            <thead>
                 <tr>
-                        @foreach(var data in val.GetProductData())
-                        {
-                            
-                            @if (Model.websiteIDs.Split(",").Contains("4") && val.productType==4)
+                    <td>Title</td>
+                    <td onclick="sortTable()">Price</td> 
+                    <td>Rating</td>
+                    <td>Extras</td>
+                    </tr>
+            </thead>
+            <tbody>
+                @foreach(var val in Model.Products)
+                {
+                    <tr class=@val.GetProductType()>
+                            @foreach(var data in val.GetProductData())
                             {
-                                <td>@data</td>
+                                
+                                @if (Model.websiteIDs.Split(",").Contains("4") && val.productType==4)
+                                {
+                                    <td>@data</td>
+                                }
+                                @if (Model.websiteIDs.Split(",").Contains("2") && val.productType==2)
+                                {
+                                    <td>@data</td>
+                                }
+                                @if (Model.websiteIDs.Split(",").Contains("1") && val.productType==1)
+                                {
+                                    <td>@data</td>
+                                }
                             }
-                            @if (Model.websiteIDs.Split(",").Contains("2") && val.productType==2)
-                            {
-                                <td>@data</td>
-                            }
-                            @if (Model.websiteIDs.Split(",").Contains("1") && val.productType==1)
-                            {
-                                <td>@data</td>
-                            }
-                        }
-                </tr>
-            }
-        </tbody>
-    </table>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
 </body>
 

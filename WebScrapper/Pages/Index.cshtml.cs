@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebScrapper.Data;
 using WebScrapper.Controller;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 
 namespace WebScrapper.Pages

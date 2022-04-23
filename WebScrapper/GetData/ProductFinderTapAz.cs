@@ -26,7 +26,8 @@ namespace WebScrapper.GetData
                     
                     title= driver.FindElement(By.XPath(productsXpath+$"[{curInd}]"+titleXpath)).GetAttribute("innerHTML");
                     price = driver.FindElement(By.XPath(productsXpath + $"[{curInd}]" + priceValueXpath)).GetAttribute("innerHTML");
-                    price+= driver.FindElement(By.XPath(productsXpath+ $"[{curInd}]" + priceCurXpath)).GetAttribute("innerHTML"); ;
+                    price = price.ToString().Replace(" ", "");
+                    price += driver.FindElement(By.XPath(productsXpath+ $"[{curInd}]" + priceCurXpath)).GetAttribute("innerHTML"); ;
                     creationDate= driver.FindElement(By.XPath(productsXpath+ $"[{curInd}]" + CreationXpath)).GetAttribute("innerHTML");
                     productsCount++;
                     this.Products.Add(new TapAzProduct(title,price,creationDate));

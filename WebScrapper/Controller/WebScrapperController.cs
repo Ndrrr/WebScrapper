@@ -51,10 +51,13 @@ namespace WebScrapper.Controller
                 finder.Search(driver, productForSearch);
                 products = products.Concat(finder.GetProducts(driver, 10)).ToList();
             }
-        
+            foreach(var data in products)
+            {
+                data.Price = data.PriceConverter();
+            }
             
             Console.WriteLine("Products found");
-
+            
             driver.Dispose();
             return products;
         } 

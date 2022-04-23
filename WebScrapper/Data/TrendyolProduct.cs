@@ -25,6 +25,14 @@
             productData.Add("Rated by " + this.RatingCount + " people");
             return productData;
         }
-
+        public override string PriceConverter()
+        {
+            string tmp = this.Price.Split(",")[0].Split(" ")[0];
+            tmp = tmp.Split(".")[0] + tmp.Split(".")[1];
+            double tmpp = Convert.ToDouble(tmp);
+            tmpp *= 0.12;
+            tmpp = Convert.ToInt32(tmpp);
+            return String.Format("{0:0.00}",tmpp.ToString())+"AZN";
+        }
     }
 }

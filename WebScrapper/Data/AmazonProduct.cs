@@ -27,5 +27,13 @@
             productData.Add(this.Seller);
             return productData;
         }
+        public override string PriceConverter()
+        {
+            string tmp = this.Price.Split("$")[1].Split(".")[0];
+            double tmpp = Convert.ToDouble(tmp);
+            tmpp *= 1.7;
+            tmpp = Convert.ToInt32(tmpp);
+            return String.Format("{0:0.00}",tmpp.ToString())+"AZN";
+        }
     }
 }

@@ -24,5 +24,9 @@
             productData.Add("Creation Date: "+this.CreationDate);
             return productData;
         }
+        public override string PriceConverter()
+        {
+            return this.Price;  
+        }
     }
 }
