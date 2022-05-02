@@ -61,3 +61,6 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+###############################################################################
+WebScrapper/wwwroot/css linguist-vendored
+WebScrapper/wwwroot/lib linguist-vendored
